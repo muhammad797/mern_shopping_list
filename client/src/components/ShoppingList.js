@@ -1,22 +1,15 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import {getItems, addItem, deleteItem} from "../actions/ItemActions";
+import {getItems, deleteItem} from "../actions/ItemActions";
 
-import {Container, ListGroup, ListGroupItem, Button} from 'reactstrap';
+import {ListGroup, ListGroupItem, Button} from 'reactstrap';
 import {CSSTransition, TransitionGroup} from 'react-transition-group';
 
 class ShoppingList extends React.Component {
 
     componentDidMount() {
         this.props.getItems();
-    }
-
-    onAddItemPress() {
-        const name = prompt("Enter Item");
-        if (name) {
-            this.props.addItem(name);
-        }
     }
 
     removeItem(id) {
@@ -26,12 +19,7 @@ class ShoppingList extends React.Component {
     render() {
         const {items} = this.props.item;
         return (
-            <Container>
-                <Button color={"dark"}
-                        style={{marginBottom: '2rem'}}
-                        onClick={this.onAddItemPress.bind(this)}>
-                    Add item
-                </Button>
+            <div>
                 <ListGroup>
                     <TransitionGroup className={"shopping-list"}>
                         {items.map(({id, name}) => (
@@ -47,14 +35,13 @@ class ShoppingList extends React.Component {
                         ))}
                     </TransitionGroup>
                 </ListGroup>
-            </Container>
+            </div>
         );
     }
 }
 
 ShoppingList.propTypes = {
     getItems: PropTypes.func.isRequired,
-    addItem: PropTypes.func.isRequired,
     deleteItem: PropTypes.func.isRequired,
     item: PropTypes.object.isRequired,
 };
@@ -65,4 +52,4 @@ const mapStateToProps = (state) => {
     }
 };
 
-export default connect(mapStateToProps, {getItems, addItem, deleteItem})(ShoppingList);
+export default connect(mapStateToProps, {getItems, deleteItem})(ShoppingList);

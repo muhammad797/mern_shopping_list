@@ -19,3 +19,11 @@
     opacity: 0.01;
     transition: opacity 1000ms ease-in;
 }
+
+div.flex {
+    display: flex
+}
+
+div.flexEnd {
+    justify-content: flex-end
+}
